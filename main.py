@@ -8,13 +8,9 @@ import xbmcaddon
 import get_category
 import os
 import xbmcvfs
-import channels 
-def x():
-  pass
- 
-
-  
-
+import channels_tv as tvchannels
+import channels_radio as radio_channel
+import channels_Qkareem as Qkareem
 def add_category():
   list_Categories=get_category.categories
  # Create the Kodi window
@@ -38,7 +34,9 @@ def add_category():
   
   
 def main():
- show_channels= channels.ChannelsTv
+ show_TVchannels= tvchannels.ChannelsTv
+ show_Radiochannels=radio_channel.radio
+ show_kareemchannel=Qkareem.Qkareem
   #add_category()
   #Parse the command-line arguments
  args = dict(urllib.parse.parse_qsl(sys.argv[2][1:]))
@@ -51,14 +49,16 @@ def main():
  else:
     Category_index = int(args["category"])
     if Category_index== 0:
-     channels.ChannelsTv.channel()
+     show_TVchannels.channel()
 
      pass
      
     elif  Category_index== 1:
+     show_Radiochannels.channel()
  
-     pass
+     
     elif  Category_index== 2:
+     show_kareemchannel.channel()
    
      pass
 
