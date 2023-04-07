@@ -7,6 +7,7 @@ class list_tv:
         satellite_channel="القناة الفضائية" 
         news_channel="قناة الاخبارية"
         Documentary="قناة الوثائقية"
+        kids_channel="قناة الاطفال"
         channels=[
 
             {"name":"قناة فلسطين مباشر ","kind":satellite_channel,"country":"فلسطين" ,"url":"https://pbc.furrera.ps/palestinelivehd/index.m3u8","logo":"https://safa.ps/thumb/w1000/uploads/images/2022/11/HjpzP.png"},
@@ -22,7 +23,9 @@ class list_tv:
               {"name":"National Geographic Abu Dhabi ","kind":Documentary,"country":"الإمارات" ,"url":"https://admdn2.cdn.mangomolo.com/nagtv/smil:nagtv.stream.smil/playlist.m3u8","logo":"https://is.gd/8sJYfo"},
               
               {"name":"DW arabic ","kind":Documentary,"country":"المانيا" ,"url":"https://dwamdstream103.akamaized.net/hls/live/2015526/dwstream103/index.m3u8","logo":"https://is.gd/tfmz91"},
-       
-              
+             {"name":"MBC1 ","kind":satellite_channel,"country":"الحجاز" ,"url":"https://is.gd/F8P5sh","logo":"https://is.gd/t3bwtL"},
+              {"name":"MBC 3  ","kind":kids_channel,"country":"الحجاز" ,"url":"https://is.gd/45ldkw","logo":"https://is.gd/u7tHjm"},
+              {"name":"MBC 4 ","kind":satellite_channel,"country":"الحجاز" ,"url":"https://is.gd/SRRwnB","logo":"https://is.gd/7VeRA2"},
+              {"name":"MBC 5  ","kind":satellite_channel,"country":"الحجاز" ,"url":"https://is.gd/OIrcH0","logo":"https://is.gd/MrqWOO"},
               ]
         return channels
