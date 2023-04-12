@@ -17,7 +17,7 @@ class ChannelsTv :
            channel_list.setInfo(type="video", infoLabels={"Title": channel["name"], "Genre":  channel["kind"]})
            channel_list.setArt({'fanart':channel["logo"]})
            channel_list.setArt({'thumb':channel["logo"]})
-           channel_list.setProperty("IsPlayable", "False")
+          # channel_list.setProperty("IsPlayable", "False")
            xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]), url=channel["url"], listitem=channel_list, isFolder=False)
 
     

@@ -8,7 +8,7 @@ class list_radio:
                {"name":"الناس ","kind":_radio,"country":"فلسطين" ,"url":"https://cdna.streamgates.net/RadioNas/Live-Audio/icecast.audio","logo":"https://is.gd/AOksLB"},
                 {"name":"سوا ","kind":_radio,"country":"سوريا" ,"url":"http://192.99.8.192:3054/;stream.mp3/stream.mp3","logo":"https://is.gd/X8ZzXL"},
                  {"name":"محطة مصر ","kind":_radio,"country":"مصر" ,"url":"https://s3.radio.co/s9cb11828c/listen","logo":"https://cdn.webrad.io/images/logos/egyptradio-net/mahatet-masr.png"},
-              
+              {"name":" مكان  ","kind":"p","country":"فلسطين" ,"url":"https://is.gd/TioCKh","logo":"https://is.gd/qU4LGD"},
               ]
 
      return channels
