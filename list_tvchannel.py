@@ -36,6 +36,7 @@ class list_tv:
               {"name":"MBC Masr 2","kind":satellite_channel,"country":"مصر" ,"url":"https://is.gd/510JqZ","logo":"https://is.gd/a2pbJY"},
               {"name":"العربي","kind":news_channel,"country":"البريطانيا" ,"url":"https://is.gd/aKdUfQ","logo":"https://is.gd/KA9aeM"},
               {"name":"المنار ","kind": satellite_channel,"country":"لبنان" ,"url":"https://is.gd/pK8no5","logo":"https://is.gd/pQTm9I"},
+              {"name":"الاقصى  ","kind":"satellite_channel","country":"فلسطين" ,"url":"https://tinyurl.com/2po6q2al","logo":"https://tinyurl.com/2zyl24gk"},
               {"name":"دبي 1 ","kind":satellite_channel,"country":"الإمارات" ,"url":"https://is.gd/ZTkf25","logo":"https://is.gd/9l4hKr"},
               {"name":"دبي ","kind":satellite_channel,"country":"الإمارات" ,"url":"https://is.gd/1HgOTB","logo":"https://is.gd/S5i701"},
               {"name":"سورية ","kind":satellite_channel,"country":"سوريا","url":"https://is.gd/8okSEe","logo":"https://is.gd/zdOVZc"},
@@ -48,7 +49,9 @@ class list_tv:
               {"name":"روتانا الاطفال","kind":kids_channel,"country":"الحجاز" ,"url":"https://tinyurl.com/2tyymsvd","logo":"https://tinyurl.com/2p8zjcte"},
               {"name":"روتانا+ ","kind":flim_channel,"country":"الحجاز" ,"url":"https://tinyurl.com/2p9unfue","logo":"https://tinyurl.com/c3ejutab"},
               {"name":"Spacetoon","kind":kids_channel,"country":"سوريا + الإمارات" ,"url":"https://tinyurl.com/26tj935t","logo":"https://tinyurl.com/44u2y94y"},
-                          #{"name":"channel ","kind":"p","country":"ps" ,"url":"url1","logo":"logo1"},
+
+
+                           #{"name":"channel ","kind":"p","country":"ps" ,"url":"url1","logo":"logo1"},
 
 
               ]
