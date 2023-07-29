@@ -55,13 +55,12 @@ def main():
      
     elif  Category_index== 1:
      show_Radiochannels.channel()
-<<<<<<< HEAD
+
      pass
-=======
+
  
      
-  
->>>>>>> 574c996dcd476586a5b0247073d8f60f1df1b479
+
 
 if __name__ == "__main__":
    main()
