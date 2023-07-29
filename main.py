@@ -57,10 +57,7 @@ def main():
      show_Radiochannels.channel()
  
      
-    elif  Category_index== 2:
-     show_kareemchannel.channel()
-   
-     pass
+  
 
 if __name__ == "__main__":
    main()
