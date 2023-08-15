@@ -39,27 +39,5 @@
   </extension>
   
 </addon>
-<addon id="repository.nidal" version="1.0.3" name="nidal" provider-name="nidal">
-	<requires>
-		<import addon="xbmc.addon" version="12.0.0"/>
-	</requires>
-	<extension point="xbmc.addon.repository" name="nidal">
-		<dir>
-			<info compressed="false">https://raw.githubusercontent.com/nidaltiti/arabic-mubaher/master/addons.xml</info>
-			<checksum>https://raw.githubusercontent.com/nidaltiti/arabic-mubaher/master/addons.xml.md5</checksum>
-			<datadir zip="true">https://github.com/nidaltiti/arabic-mubaher/raw/master/repo</datadir>
-		</dir>
-		
-	</extension>
-	<extension point="xbmc.addon.metadata">
-		<summary lang="en">Kodi repository for beta/test versions of Marcelveldt's addons</summary>
-		<description lang="en">Kodi repository for beta/test versions of Marcelveldt's addons, for stable versions please just use the official Kodi repository. This repo is for test/beta versions of my work only</description>
-		<platform>all</platform>
-		<assets>
-			<icon>icon.jpg</icon>
-			<fanart>fanart.jpg</fanart>
-		</assets>
-	</extension>
-</addon>
 
 </addons>
