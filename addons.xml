@@ -3,7 +3,7 @@
 
 
  
-<addon id="plugin.video.arabic-mubaher" name="مباشر على الهواء" version="1.0.0.2" provider-name="NT-Works">
+<addon id="plugin.video.arabic-mubaher" name="مباشر على الهواء" version="0.0.2" provider-name="NT-Works">
   <requires>
      <import addon="script.module.requests" version="2.22.0"/>
   </requires>
