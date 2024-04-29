@@ -16,8 +16,8 @@ class list_tv:
              {"name":"قناة فلسطين مباشر ","kind":satellite_channel,"country":"فلسطين" ,"url":"https://pbc.furrera.ps/palestinelivehd/index.m3u8","logo":"https://safa.ps/thumb/w1000/uploads/images/2022/11/HjpzP.png"},
              {"name":"قناة هلا ","kind":satellite_channel,"country":"فلسطين " ,"url":"https://live2.panet.co.il/edge_abr/halaTV/edge_abr/halaTV_1080p/chunks.m3u8","logo":"http://psce.pw/4vchfx"},
              {"name":"قناة الأردن ","kind":satellite_channel,"country":"الأردن" ,"url":"https://jrtv-live.ercdn.net/jordanhd/jordanhd.m3u8","logo":"http://psce.pw/4w6j8n"},
-             {"name":"قناة القدس يوم   ","kind":satellite_channel,"country":"فلسطين" ,"url":"http://live.alqudstoday.tv:8080/hls/alqudstv/alqudstv.m3u8","logo":"https://is.gd/mYHff2"},
-             {"name":"قناة سوريا ","kind":satellite_channel,"country":"سوريا" ,"url":"https://svs.itworkscdn.net/syriatvlive/syriatv.smil/playlist_dvr.m3u8","logo":"http://psce.pw/4w6j3k"},
+             {"name":"افلام ","kind":flim_channel,"country":"؟" ,"url":"https://tinyurl.com/2c7y6x77","logo":"https://tinyurl.com/28gmy28f"},
+             {"name":"قناة سوريا ","kind":satellite_channel,"country":"سوريا" ,"url":"https://tinyurl.com/23l8n4uf","logo":"http://psce.pw/4w6j3k"},
             
             
             
@@ -30,17 +30,16 @@ class list_tv:
               {"name":"سكاي نيوز عربية ","kind":news_channel,"country":"الإمارات" ,"url":"https://stream.skynewsarabia.com/hls/sna.m3u8","logo":"https://m.eyeofriyadh.com/news_images/2020/01/1c376f37a51aa.jpg"},
               {"name":"الجزيرة ","kind":news_channel,"country":"ps" ,"url":"https://live-hls-web-aja.getaj.net/AJA/index.m3u8","logo":"https://pbs.twimg.com/ext_tw_video_thumb/1458689463547219968/pu/img/gE8Cs-DTUNnqt0cy.jpg:large"},
               
-              {"name":"National Geographic Abu Dhabi ","kind":Documentary,"country":"الإمارات" ,"url":"https://admdn2.cdn.mangomolo.com/nagtv/smil:nagtv.stream.smil/playlist.m3u8","logo":"https://is.gd/8sJYfo"},
+              {"name":"Nature-Time ","kind":Documentary,"country":"الإمارات" ,"url":"https://tinyurl.com/ym7dv5ve","logo":"https://tinyurl.com/2brtvcj7"},
               
               {"name":"DW arabic ","kind":Documentary,"country":"المانيا" ,"url":"https://dwamdstream103.akamaized.net/hls/live/2015526/dwstream103/index.m3u8","logo":"https://is.gd/tfmz91"},
-              {"name":"MBC1 ","kind":satellite_channel,"country":"الحجاز" ,"url":"https://is.gd/F8P5sh","logo":"https://is.gd/t3bwtL"},
-              {"name":"MBC2","kind":satellite_channel,"country":"الحجاز" ,"url":"https://tinyurl.com/2q6zer6h","logo":"https://tinyurl.com/y6c5rjeu"},
+              {"name":"MBC1 ","kind":satellite_channel,"country":"الحجاز" ,"url":"https://tinyurl.com/2qley7tw","logo":"https://is.gd/t3bwtL"},
               {"name":"MBC 3  ","kind":kids_channel,"country":"الحجاز" ,"url":"https://is.gd/45ldkw","logo":"https://is.gd/u7tHjm"},
-              {"name":"MBC 4 ","kind":satellite_channel,"country":"الحجاز" ,"url":"https://is.gd/SRRwnB","logo":"https://is.gd/7VeRA2"},
-              {"name":"MBC 5  ","kind":satellite_channel,"country":"الحجاز" ,"url":"https://is.gd/OIrcH0","logo":"https://is.gd/MrqWOO"},
-              {"name":"MBC Plus Drama  ","kind":drama_channel,"country":"الحجاز" ,"url":"https://is.gd/dNo23x","logo":"https://is.gd/f0eYGI"},
-              {"name":"MBC Masr 1","kind":satellite_channel,"country":"مصر" ,"url":"https://is.gd/zxFFxs","logo":"https://is.gd/pfaX9I"},
-              {"name":"MBC Masr 2","kind":satellite_channel,"country":"مصر" ,"url":"https://is.gd/510JqZ","logo":"https://is.gd/a2pbJY"},
+              {"name":"MBC 4 ","kind":satellite_channel,"country":"الحجاز" ,"url":"https://tinyurl.com/yvz5wfuo","logo":"https://is.gd/7VeRA2"},
+              {"name":"MBC 5  ","kind":satellite_channel,"country":"الحجاز" ,"url":"https://tinyurl.com/29veymtu","logo":"https://is.gd/MrqWOO"},
+              {"name":"MBC Plus Drama  ","kind":drama_channel,"country":"الحجاز" ,"url":"https://tinyurl.com/22ukgo48","logo":"https://is.gd/f0eYGI"},
+              {"name":"MBC Masr 1","kind":satellite_channel,"country":"مصر" ,"url":"https://tinyurl.com/28r8xmjk","logo":"https://is.gd/pfaX9I"},
+              {"name":"MBC Masr 2","kind":satellite_channel,"country":"مصر" ,"url":"https://tinyurl.com/2cb2qhx4","logo":"https://is.gd/a2pbJY"},
               {"name":"العربي","kind":news_channel,"country":"البريطانيا" ,"url":"https://tinyurl.com/22pzd7sb","logo":"https://is.gd/KA9aeM"},
               {"name":"المنار ","kind": satellite_channel,"country":"لبنان" ,"url":"https://is.gd/pK8no5","logo":"https://is.gd/pQTm9I"},
               {"name":"الاقصى  ","kind":"satellite_channel","country":"فلسطين" ,"url":"https://tinyurl.com/2po6q2al","logo":"https://tinyurl.com/2zyl24gk"},
@@ -56,8 +55,7 @@ class list_tv:
               {"name":"روتانا الاطفال","kind":kids_channel,"country":"الحجاز" ,"url":"https://tinyurl.com/2tyymsvd","logo":"https://tinyurl.com/2p8zjcte"},
               {"name":"روتانا+ ","kind":flim_channel,"country":"الحجاز" ,"url":"https://tinyurl.com/2p9unfue","logo":"https://tinyurl.com/c3ejutab"},
               {"name":"Spacetoon","kind":kids_channel,"country":"سوريا + الإمارات" ,"url":"https://tinyurl.com/26tj935t","logo":"https://tinyurl.com/44u2y94y"},
-
-
+              {"name":"لنا ","kind":"drama_channel","country":"سوريا" ,"url":"https://p-ltv.akamaized.net/ltv/ltv.m3u8","logo":"https://tinyurl.com/2aheursa"},
                            #{"name":"channel ","kind":"p","country":"ps" ,"url":"url1","logo":"logo1"},
 
 
