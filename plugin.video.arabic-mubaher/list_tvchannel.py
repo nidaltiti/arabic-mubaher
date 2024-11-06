@@ -26,7 +26,7 @@ class list_tv:
              {"name":" قناة رؤيا كوميدي","kind":satellite_channel,"country":"الأردن" ,"url":"https://tinyurl.com/2cfmuras","logo":"https://cdn01.paltoday.ps/ar/thumb/940x610/uploads/images/2022/05/h7DgM.jpg"},
 
            
-             {"name":"قناة الميادين  ","kind":satellite_channel,"country":"لبنان" ,"url":"https://mdnlv.cdn.octivid.com/almdn/smil:mpegts.stream.smil/chunklist_b3000000_t64NTQwcA==.m3u8","logo":"https://media.almayadeen.tv/uploads/archive/default.png"},
+             {"name":"قناة الميادين  ","kind":satellite_channel,"country":"لبنان" ,"url":"https://mdnlv.cdn.octivid.com/almdn/smil:mpegts.stream.smil/playlist.m3u8","logo":"https://media.almayadeen.tv/uploads/archive/default.png"},
               {"name":"سكاي نيوز عربية ","kind":news_channel,"country":"الإمارات" ,"url":"https://stream.skynewsarabia.com/hls/sna.m3u8","logo":"https://m.eyeofriyadh.com/news_images/2020/01/1c376f37a51aa.jpg"},
               {"name":"الجزيرة ","kind":news_channel,"country":"ps" ,"url":"https://live-hls-web-aja.getaj.net/AJA/index.m3u8","logo":"https://pbs.twimg.com/ext_tw_video_thumb/1458689463547219968/pu/img/gE8Cs-DTUNnqt0cy.jpg:large"},
               
