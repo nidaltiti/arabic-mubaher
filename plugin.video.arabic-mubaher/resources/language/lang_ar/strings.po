@@ -1,0 +1,19 @@
+msgctxt "#30208"
+msgid "Show Information"
+msgstr "عرض المعلومات"
+
+msgctxt "#30210"
+msgid "Add to Bookmarks"
+msgstr "إضافة إلى المفضلة"
+
+msgctxt "#30213"
+msgid "Similar Content"
+msgstr "محتوى مشابه"
+
+msgctxt "#33213"
+msgid "Parental Guide"
+msgstr "دليل الأهل"
+
+msgctxt "#30412"
+msgid "Remove"
+msgstr "إزالة"

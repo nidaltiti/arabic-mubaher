@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<addon id="plugin.video.arabic-mubaher"
+       name="مباشر على الهواء"
+       version="0.0.3"
+       provider-name="NT-Works">
+
+    <!-- Add-on Dependencies -->
+    <requires>
+        <import addon="xbmc.python" version="3.0.0"/>
+        <import addon="script.module.requests" version="2.22.0"/>
+    </requires>
+
+    <!-- Plugin Entry Point -->
+    <extension point="xbmc.python.pluginsource" library="main.py">
+        <provides>video</provides>
+    </extension>
+
+    <!-- Global Context Menu Extension (optional) -->
+   
+
+    <!-- Add-on Metadata -->
+    <extension point="xbmc.addon.metadata">
+        <summary lang="en_GB">Live Arabic TV Channels</summary>
+        <summary lang="ar">بث مباشر للقنوات العربية</summary>
+
+        <description lang="en_GB">
+            Arabic Mubaher provides live streaming of Arabic TV channels with bookmarking,
+            info, similar content, and viewing history.
+        </description>
+        <description lang="ar">
+            إضافة مباشر على الهواء تقدم بثًا مباشرًا للقنوات العربية مع دعم المفضلة،
+            المعلومات، والمحتوى المشابه.
+        </description>
+
+        <language>en ar</language>
+        <platform>all</platform>
+        <license>GPL-2.0-or-later</license>
+        <website>https://nt-works.github.io/ar-mubaher</website>
+        <source>https://github.com/nt-works/plugin.video.arabic-mubaher</source>
+
+        <news>
+v0.0.3
+- Added bilingual context menu (English + Arabic)
+- Added bookmark  history management
+- Improved UI and performance
+        </news>
+
+        <assets>
+            <icon>tv-rado.jpg</icon>
+            <fanart>fanart.jpg</fanart>
+            <banner>banner.png</banner>
+            <clearlogo>resources/clearlogo.png</clearlogo>
+        </assets>
+    </extension>
+
+</addon>
