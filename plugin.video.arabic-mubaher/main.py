@@ -10,8 +10,9 @@ import os
 import xbmcvfs
 import channels_tv as tvchannels
 import channels_radio as radio_channel
-import settings as kodi_settings
+from  resources.lib.settings import KodiSettings
 file=None
+settings_instance = KodiSettings()
 def add_category():
    
     list_Categories = get_category.categories
@@ -34,16 +35,13 @@ def add_category():
     xbmcplugin.endOfDirectory(int(sys.argv[1]))
  
 def main():
-    kodi_settings_instance = kodi_settings.KodiSettings()
-    if "autoplay" in     kodi_settings_instance.all():
-        pass
-    else:
-
-     kodi_settings_instance.set("autoplay", True)
+  
+    
+ 
 
 
-    show_TVchannels = tvchannels.TV
-    show_Radiochannels = radio_channel.radio
+    show_TVchannels = tvchannels.TV()
+    show_Radiochannels = radio_channel.radio()
  
   
     # Parse the command-line arguments

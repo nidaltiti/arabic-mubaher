@@ -7,7 +7,9 @@ import xbmc
 import xbmcaddon
 import urllib.parse
 import json
-
+import xbmcvfs
+from  resources.lib.settings import KodiSettings
+settings = KodiSettings()
 
 HANDLE = int(sys.argv[1])
 playboll=False
@@ -29,6 +31,9 @@ class TV:
 
     @classmethod
     def check_folder(cls, path=None):
+        
+     
+
         folder = path if path else cls.MEDIA_FOLDER
 
         if not folder or not os.path.exists(folder) or not os.path.isdir(folder):
@@ -241,7 +246,8 @@ def player (args):
           data = json.loads(raw_json)
           file_path = data.get("path")
           ext= data.get("Extension")
-
+          filename= data.get("file")
+ 
         #  file_path = os.path.join(folder_path, f)
           list_item = xbmcgui.ListItem(label= data.get("file"))
           list_item.setPath(file_path)
@@ -249,37 +255,38 @@ def player (args):
           xbmcplugin.addDirectoryItem(HANDLE, url=file_path, listitem=list_item, isFolder=False)
           player = xbmc.Player()
           playlist = xbmc.PlayList(xbmc.PLAYLIST_VIDEO)
-          
+        
+          key = filename
+         
+
+
+
+         # if not isinstance(all_play, dict):
+       
         
         
         
-          class dict:
-           auto={}
-           def  __init__(self):
-            pass
-           def append(self,item):
-                dict.auto.append(item)
-                dict[item]=True
-             
-                return  dict.auto
            
-           
+         #     all_play = settings.get("play", {})
         
+          xbmcplugin.endOfDirectory(HANDLE)
         
-        
-        
-          player.play(file_path)
+       #   player.play(file_path)
          
 # Finish the directory listing
+'''''
           xbmcplugin.endOfDirectory(HANDLE)
           if  ext != "strm":
             
             # player.stop()
             xbmc.executebuiltin("Action(ParentDir)")
           if player.isPlaying():
-               player.stop() 
+               player.stop() '''
 
 args = dict(urllib.parse.parse_qsl(sys.argv[2][1:]))
 if "VPlayer" in args:
+      
       #  xbmcgui.Dialog().ok("","yes")
       player(args)
+      data=settings.get("play", {})
+      xbmcgui.Dialog().ok("DEBUG JSON", str(data))
