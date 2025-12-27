@@ -75,7 +75,7 @@ def main():
         if Category_index == 0:
             # show_TVchannels.load_settings()
             show_TVchannels.check_folder()
-            show_TVchannels.browse_folder()
+            show_TVchannels.chk_browse_data()
             # folder = show_TVchannels.check_folder()
             pass
         

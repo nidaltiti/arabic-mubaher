@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window>
+    <backgroundcolor>FF191970</backgroundcolor>
+    <defaultcontrol>200</defaultcontrol>
+    <controls>
+
+        <!-- Background image -->
+        <control type="image" id="1000">
+            <posx>0</posx>
+            <posy>0</posy>
+            <width>1920</width>
+            <height>1080</height>
+            <texture>special://home/addons/plugin.video.arabic-mubaher/resources/media/server.png</texture>
+        </control>
+
+        <!-- Buttons -->
+        <control type="button" id="200">
+            <label>Url</label>
+            <font>font13</font>
+            <textcolor>FFFFFFFF</textcolor>
+            <posx>100</posx>
+            <posy>900</posy>
+            <width>250</width>
+            <height>100</height>
+            <align>center</align>
+            <aligny>center</aligny>
+        </control>
+
+        <control type="button" id="201">
+            <label>Info</label>
+            <font>font13</font>
+            <textcolor>FFFFFFFF</textcolor>
+            <posx>400</posx>
+            <posy>900</posy>
+            <width>250</width>
+            <height>100</height>
+            <align>center</align>
+            <aligny>center</aligny>
+        </control>
+
+        <control type="button" id="202">
+            <label>Name</label>
+            <font>font13</font>
+            <textcolor>FFFFFFFF</textcolor>
+            <posx>700</posx>
+            <posy>900</posy>
+            <width>250</width>
+            <height>100</height>
+            <align>center</align>
+            <aligny>center</aligny>
+        </control>
+
+        <control type="button" id="203">
+            <label>Ico</label>
+            <font>font13</font>
+            <textcolor>FFFFFFFF</textcolor>
+            <posx>1000</posx>
+            <posy>900</posy>
+            <width>250</width>
+            <height>100</height>
+            <align>center</align>
+            <aligny>center</aligny>
+        </control>
+
+        <control type="button" id="204">
+            <label>Thumbnail</label>
+            <font>font13</font>
+            <textcolor>FFFFFFFF</textcolor>
+            <posx>1300</posx>
+            <posy>900</posy>
+            <width>250</width>
+            <height>100</height>
+            <align>center</align>
+            <aligny>center</aligny>
+        </control>
+
+        <control type="button" id="205">
+            <label>Cancel</label>
+            <font>font13</font>
+            <textcolor>FFFFFFFF</textcolor>
+            <posx>1600</posx>
+            <posy>900</posy>
+            <width>250</width>
+            <height>100</height>
+            <align>center</align>
+            <aligny>center</aligny>
+        </control>
+
+    </controls>
+</window>
