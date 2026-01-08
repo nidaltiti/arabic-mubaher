@@ -9,10 +9,12 @@ import urllib.parse
 import json
 import xbmcvfs
 from  resources.lib.settings import KodiSettings
+from resources.lib.gui.OptionsWindow import OptionsWindow
 import threading
 import time
 settings = KodiSettings()
 _media_library = KodiSettings(filename="media_library.json")
+#_OptionsWindow = OptionsWindow('OptionsWindow.xml', xbmcaddon.Addon().getAddonInfo('path'), 'default', '1080i')
 
 
 HANDLE = int(sys.argv[1])
@@ -75,11 +77,13 @@ class TV:
         return data
     @classmethod
     def browse_folder(cls, path=None):
+        ''' covert  all play to true '''
         data=settings.get("play", {})
         for key in list(data.keys()):
            
                data[ key] = True
-        settings.set("play", data)
+        settings.set("play", data) # save updated play settings
+        ''' end covert  all play to true '''
       
         folder = path if path else cls.MEDIA_FOLDER
 
@@ -318,8 +322,9 @@ def handle_action(action, file_path):
        RES_NAME  = "1080i"
 
 # Create and show the window
-       window = OptionsWindow(XML_FILE, ADDON_PATH, SKIN_NAME, RES_NAME)
-       window.doModal()
+       _OptionsWindow =OptionsWindow(XML_FILE, ADDON_PATH, SKIN_NAME, RES_NAME)
+       _OptionsWindow.doModal()
+      
        del win
        pass
     pass
@@ -327,18 +332,7 @@ def handle_action(action, file_path):
 
 
 
-class OptionsWindow(xbmcgui.WindowXML):
-    def onInit(self):
-        xbmcgui.Dialog().notification("Test", "Window loaded!", xbmcgui.NOTIFICATION_INFO, 3000)
 
-    def onClick(self, controlId):
-        if controlId == 200:
-            xbmcgui.Dialog().notification("Play", "Playing video...", xbmcgui.NOTIFICATION_INFO, 3000)
-        elif controlId == 201:
-            xbmc.executebuiltin("Action(Info)")
-            xbmcgui.Dialog().notification("Info", "Showing info...", xbmcgui.NOTIFICATION_INFO, 3000)
-        elif controlId == 202:
-            xbmcgui.Dialog().notification("Trailer", "Playing trailer...", xbmcgui.NOTIFICATION_INFO, 3000)
 
 def player (args):
           
