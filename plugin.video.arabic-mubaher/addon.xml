@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <addon id="plugin.video.arabic-mubaher"
        name="مباشر على الهواء"
-       version="0.0.3"
+       version="0.0.4"
        provider-name="NT-Works">
 
     <!-- Add-on Dependencies -->
