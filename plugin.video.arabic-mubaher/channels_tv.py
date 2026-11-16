@@ -13,20 +13,50 @@ import xbmcaddon
 import xbmcvfs
 
 from resources.lib.settings import KodiSettings
+from resources.lib.bookmark_db import BookmarkManager
 from resources.lib.gui.OptionsWindow import OptionsWindow
-from m3u_file import player_m3u, play_m3u_item, save_m3u_item, download_m3u_item, set_dependencies
+from m3u_file import player_m3u, play_m3u_item, save_m3u_item, download_m3u_item, set_dependencies, decode_json_param
+# YouTube support (detect + resolve + play videos/playlists) lives in youtube_pluging.py
+# Set ENABLE_YOUTUBE = False to switch ALL YouTube handling off and get the
+# original behaviour back (handy to find out what is freezing Kodi).
+ENABLE_YOUTUBE = True
 
+YOUTUBE_AVAILABLE = False
+YT_PLAYLIST_ACTION = "youtube_playlist"   # same value as youtube_pluging.PLAYLIST_ACTION
+if ENABLE_YOUTUBE:
+    try:
+        from  resources.lib.youtube_pluging import (
+            is_youtube_url,
+            is_youtube_playlist_url,
+            extract_playlist_id,
+            launch_youtube_async,
+            display_youtube_playlist,
+            get_playlist_route_url,
+            PLAYLIST_ACTION as YT_PLAYLIST_ACTION,
+        )
+        YOUTUBE_AVAILABLE = True
+    except Exception as _yt_err:
+        # youtube_pluging.py missing / not in the same folder / has an error.
+        # The add-on keeps working; the reason is written to kodi.log.
+        xbmc.log(f"[YouTube] Could not import youtube_pluging.py: {_yt_err}", xbmc.LOGERROR)
+
+#from resources.lib.m3u_file import M3UFileHandler
 # Initialize settings
+
 settings = KodiSettings()
+bookmark=BookmarkManager()
 _media_library = KodiSettings(filename="media_library.json")
 
 HANDLE = int(sys.argv[1])
+# Initialize M3UFileHandler with settings and media library
 
 
 class TV:
-    """TV addon class for managing media files"""
     
-    VIDEO_EXT = ['.mp4', '.mkv', '.avi', '.m3u8', 'm3u', '.strm']
+    """TV addon class for managing media files"""
+   
+   
+    VIDEO_EXT = ['.mp4', '.mkv', '.avi', '.m3u8', '.m3u', '.strm']
     AUDIO_EXT = ['.mp3', '.flac']
 
     addon = xbmcaddon.Addon()
@@ -149,6 +179,58 @@ class TV:
 set_dependencies(settings, _media_library, HANDLE, TV)
 
 
+def is_playlist_entry(path):
+    """True if a library entry is a YouTube PLAYLIST URL.
+
+    Such entries are shown as FOLDERS: opening one lists the playlist's videos
+    in a Kodi directory (see display_youtube_playlist) instead of playing.
+    """
+    return bool(
+        YOUTUBE_AVAILABLE
+        and isinstance(path, str)
+        and is_youtube_url(path)
+        and extract_playlist_id(path)
+    )
+
+
+def play_if_youtube(url):
+    """Hand a YouTube link to youtube_pluging.py WITHOUT blocking Kodi.
+
+        YouTube playlist URL -> (only reached for playable entries such as M3U
+                                items; library entries open as a folder
+                                instead) all its videos are IMPORTED into
+                                Kodi's video playlist, playback NOT started
+        YouTube video URL    -> played
+
+    The work runs in a separate Kodi script, so this call returns
+    immediately (a long add-on call makes Kodi show a busy spinner / look
+    frozen). The script shows its own notification.
+
+    Args:
+        url: Path or URL that is about to be played.
+
+    Returns:
+        bool: True  -> it is a YouTube URL and it was handed over, so the
+                       caller must NOT play it again.
+              False -> not a YouTube URL (or YouTube support unavailable);
+                       the caller continues with its normal logic.
+    """
+    if not YOUTUBE_AVAILABLE or not isinstance(url, str):
+        return False
+
+    try:
+        if not is_youtube_url(url):
+            return False
+
+        # Report success only when the YouTube module actually accepted the URL.
+        return bool(launch_youtube_async(url))
+    except Exception as e:
+        # Never break the add-on because of the YouTube module
+        import traceback
+        xbmc.log(f"[YouTube] error: {e}\n{traceback.format_exc()}", xbmc.LOGERROR)
+        return False
+
+
 def show_info(file_path):
     """Display file information"""
     if not file_path or not os.path.exists(file_path):
@@ -197,24 +279,14 @@ def delete_file(file_name, file_path):
         xbmcgui.Dialog().notification("Delete", "Removal cancelled")
 
 
-def add_bookmark(file_path):
+def add_bookmark(Vname):
     """Add a bookmark to a file"""
-    if not file_path:
+    if not Vname:
         xbmcgui.Dialog().notification("Bookmark", "Invalid file path!")
         return
 
-    keyboard = xbmc.Keyboard('', 'Enter bookmark name')
-    keyboard.doModal()
-
-    if keyboard.isConfirmed():
-        bookmark_name = keyboard.getText()
-        if bookmark_name:
-            xbmcgui.Dialog().notification("Bookmark", f"Bookmarked as: {bookmark_name}")
-        else:
-            xbmcgui.Dialog().notification("Bookmark", "Bookmark name cannot be empty!")
-    else:
-        xbmcgui.Dialog().notification("Bookmark", "Bookmark cancelled")
-
+    if bookmark.add(Vname):
+        xbmcgui.Dialog().notification("Bookmark", f"'{Vname}' added to bookmarks!")
 
 def add_data(file_path):
     """Add data/notes to a file"""
@@ -325,7 +397,20 @@ def create_media_list_item(file_name, path, ext, icon=None, thumb=None, info=Non
     
     # Create ListItem
     list_item = xbmcgui.ListItem(label=file_name)
-    
+
+    # A YouTube playlist URL is shown as a FOLDER so that opening it lists the
+    # playlist's videos. A playable item cannot show a directory.
+    is_yt_playlist = is_playlist_entry(path)
+
+    if not is_yt_playlist and parameter_video != "VPlayerM3U":
+        # (An M3U/M3U8 file entry is NOT marked playable: opening it may have to
+        # show a list of its links, which a playable item cannot do.)
+        # This is a playable item, NOT a sub-directory. Without this, Kodi
+        # treats the click as "navigate into a folder", pushing a new
+        # (empty) directory level onto the navigation history every time an
+        # item is played - i.e. content keeps "stacking" in Kodi.
+        list_item.setProperty('IsPlayable', 'true')
+
     # Set artwork
     list_item.setArt({
         'icon': icon if icon else DEFAULT_ICON,
@@ -361,7 +446,7 @@ def create_media_list_item(file_name, path, ext, icon=None, thumb=None, info=Non
         context_menu.append(
             ("[COLOR green]📋 Copy M3U Content[/COLOR]", f"RunPlugin({sys.argv[0]}?action=copy_m3u&json={json_param})")
         )
-    
+
     # Add delete option
     context_menu.append(
         ("[COLOR red]Delete File[/COLOR]", f"RunPlugin({sys.argv[0]}?action=delete&json={json_param})")
@@ -371,6 +456,10 @@ def create_media_list_item(file_name, path, ext, icon=None, thumb=None, info=Non
     
     # Create URL
     url = f"{sys.argv[0]}?{parameter_video}={json_param}"
+
+    if is_yt_playlist:
+        # Route back into this add-on: <base>?action=youtube_playlist&url=<playlist url>
+        url = get_playlist_route_url(sys.argv[0], path)
     
     return url, list_item, parameter_video
 
@@ -396,10 +485,14 @@ def container_database():
         info = block.get("info", None)
         ext = block.get("extension", None)
 
-        url, list_item, _ = create_media_list_item(
+        url, list_item, kind = create_media_list_item(
             file_name, path, ext, icon, thumb, info
         )
-        xbmcplugin.addDirectoryItem(HANDLE, url, list_item, isFolder=True)
+        # isFolder=False: these are playable files, not sub-directories.
+        # isFolder=True was pushing a new (empty) directory level onto
+        # Kodi's navigation stack every time an item was played.
+        # (M3U/M3U8 file entries are the exception: they open a list of links.)
+        xbmcplugin.addDirectoryItem(HANDLE, url, list_item, isFolder=is_playlist_entry(path) or kind == "VPlayerM3U")
 
     
 
@@ -471,7 +564,7 @@ def handle_action(action, file_data):
     elif action == "delete":
         delete_file(file_name, file_path)
     elif action == "bookmark":
-        add_bookmark(file_path)
+        add_bookmark(file_name)
     elif action == "adddata":
         addon = xbmcaddon.Addon("plugin.video.arabic-mubaher")
         addon_path = addon.getAddonInfo("path")
@@ -487,14 +580,11 @@ def handle_action(action, file_data):
 
 def player(args):
     """Play media file"""
-    raw_json = urllib.parse.unquote(args["VPlayer"])
-    data = json.loads(raw_json)
+    raw_json = args["VPlayer"]
+    data = decode_json_param(raw_json)
     file_path = data.get("path")
     ext = data.get("extension")
     filename = data.get("file")
-
-    player_obj = xbmc.Player()
-    playlist = xbmc.PlayList(xbmc.PLAYLIST_VIDEO)
 
     key = filename
     play_data = settings.get("play", {})
@@ -503,18 +593,34 @@ def player(args):
         play_data[key] = True
         settings.set("play", play_data)
 
+    player_obj = xbmc.Player()
+    playlist = xbmc.PlayList(xbmc.PLAYLIST_VIDEO)
+
     if play_data[key]:
-        if "plugin://" in str(file_path).lower():
-            xbmc.executebuiltin(f'PlayMedia("{file_path}")')
+        # YouTube links (video / playlist / video inside a playlist) are
+        # resolved and played by youtube_pluging.py, which also shows the
+        # notification. Everything else uses the original logic below.
+        youtube_handled = play_if_youtube(file_path)
+
+        if youtube_handled:
+            pass  # already playing (or error shown) - do not play twice
+        elif "plugin://" in str(file_path).lower():
+         
+             xbmc.executebuiltin(f'PlayMedia("{file_path}")')
+        
+               
         else:
             xbmc.Player().play(file_path)
 
-        xbmcgui.Dialog().notification(
-            "Playing",
-            f"Now playing:\n{file_path}",
-            xbmcgui.NOTIFICATION_INFO,
-            3000
-        )
+        # Kodi shows only one notification at a time, so skip the generic
+        # "Playing" popup for YouTube (it would hide the YouTube message).
+        if not youtube_handled:
+            xbmcgui.Dialog().notification(
+                "Playing",
+                f"Now playing:\n{file_path}",
+                xbmcgui.NOTIFICATION_INFO,
+                3000
+            )
 
         play_data[key] = False
         settings.set("play", play_data)
@@ -538,11 +644,26 @@ if "action" in args:
     if action == "refresh":
         TV.browse_folder()
         xbmc.executebuiltin("Container.Refresh()")
+    elif action == YT_PLAYLIST_ACTION:
+        # A YouTube playlist folder was opened: list its videos in THIS
+        # directory. display_youtube_playlist() calls
+        # xbmcplugin.endOfDirectory(HANDLE) itself (once, also on failure),
+        # so nothing else may finish this request.
+        if YOUTUBE_AVAILABLE:
+            display_youtube_playlist(HANDLE, args.get("url", ""))
+        else:
+            xbmcgui.Dialog().notification(
+                "YouTube", "YouTube support is not available", xbmcgui.NOTIFICATION_ERROR
+            )
+            xbmcplugin.endOfDirectory(HANDLE, succeeded=False)
     elif action == "play_m3u_item":
         # Handle M3U item playback
         file_param = args.get("json")
         try:
-            item_data = json.loads(urllib.parse.unquote(file_param))
+            item_data = decode_json_param(file_param)
+            # play_m3u_item resolves the final URL with xbmcplugin.setResolvedUrl.
+            # Do not launch YouTube separately here: that leaves Kodi's playable
+            # plugin request unfinished and can make the UI stack/freeze.
             play_m3u_item(item_data)
         except Exception as e:
             xbmcgui.Dialog().notification("Error", f"Failed to play item: {str(e)}")
@@ -550,7 +671,7 @@ if "action" in args:
         # Handle M3U item save
         file_param = args.get("json")
         try:
-            item_data = json.loads(urllib.parse.unquote(file_param))
+            item_data = decode_json_param(file_param)
             save_m3u_item(item_data)
         except Exception as e:
             xbmcgui.Dialog().notification("Error", f"Failed to save item: {str(e)}")
@@ -558,7 +679,7 @@ if "action" in args:
         # Handle M3U item download
         file_param = args.get("json")
         try:
-            item_data = json.loads(urllib.parse.unquote(file_param))
+            item_data = decode_json_param(file_param)
             download_m3u_item(item_data)
         except Exception as e:
             xbmcgui.Dialog().notification("Error", f"Failed to download item: {str(e)}")
@@ -573,4 +694,4 @@ if "action" in args:
 elif "VPlayer" in args:
     player(args)
 elif "VPlayerM3U" in args:
-    player_m3u(args)
+ player_m3u(args)
